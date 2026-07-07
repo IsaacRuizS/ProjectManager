@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gestor de Proyectos
 
-## Getting Started
+Sistema de gestión de proyectos tipo Kanban desarrollado con Next.js y MongoDB Atlas.
+Práctica evaluada No. 4 — SC-609 Base de Datos NoSQL, Universidad Fidélitas.
 
-First, run the development server:
+## Requisitos
+
+- Node.js 20+
+- Cuenta en MongoDB Atlas con un cluster y usuarios creados.
+
+## Configuración
+
+1. Crear un archivo `.env.local` en la raíz con las siguientes variables:
+
+   ```env
+   MONGODB_URI="mongodb+srv://pm_app:<pass>@<cluster>/?retryWrites=true&w=majority"
+   MONGODB_DB="project_management"
+   MONGODB_ADMIN_URI="mongodb+srv://pm_admin:<pass>@<cluster>/?retryWrites=true&w=majority"
+   AUTH_SECRET="<openssl rand -base64 32>"
+   ```
+
+3. Instalar dependencias y crear la base de datos:
+
+   ```bash
+   npm install
+   mongosh "$MONGODB_ADMIN_URI" --file scripts/create-database.js
+   ```
+
+## Desarrollo
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Abrir [http://localhost:3000](http://localhost:3000).
