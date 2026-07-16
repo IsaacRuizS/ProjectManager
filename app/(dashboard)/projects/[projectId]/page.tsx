@@ -1,8 +1,10 @@
 import { ObjectId } from "mongodb";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projectsCollection } from "@/lib/db/collections";
 import { getSession } from "@/lib/auth/session";
 import { Card } from "@/components/ui/card";
+import { PROJECT_STATUS_LABEL } from "@/lib/i18n/labels";
 import { ProjectActions } from "./_components/project-actions";
 
 export default async function ProjectDetailPage({
@@ -28,8 +30,16 @@ export default async function ProjectDetailPage({
       <div className="flex items-start justify-between">
         <div>
           <h1 className="text-2xl font-semibold">{project.name}</h1>
-          <p className="mt-1 text-xs uppercase tracking-wide text-zinc-500">{project.status}</p>
+          <p className="mt-1 text-xs uppercase tracking-wide text-zinc-500">
+            {PROJECT_STATUS_LABEL[project.status]}
+          </p>
         </div>
+        <Link
+          href={`/projects/${projectId}/board`}
+          className="rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+        >
+          Abrir tablero
+        </Link>
       </div>
 
       <Card className="space-y-4">

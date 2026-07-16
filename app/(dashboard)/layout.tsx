@@ -15,6 +15,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
             Gestor de Proyectos
           </Link>
           <div className="flex items-center gap-4 text-sm text-zinc-600 dark:text-zinc-400">
+            <Link href="/buscar" className="hover:text-zinc-900 dark:hover:text-white">
+              Buscar
+            </Link>
             <span>{session.name}</span>
             <LogoutButton />
           </div>

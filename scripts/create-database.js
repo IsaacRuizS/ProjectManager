@@ -104,8 +104,13 @@ db.createCollection("comments", {
 db.tasks.createIndex({ column_id: 1 }, { name: "idx_column" });
 
 // Índice COMPUESTO: acelera el render del tablero Kanban
-// (tareas de un proyecto agrupadas por columna y ordenadas).
 db.tasks.createIndex(
   { project_id: 1, column_id: 1, order: 1 },
   { name: "idx_board" }
+);
+
+// Índice de TEXTO: soporta búsqueda por texto en título y descripción de tareas
+db.tasks.createIndex(
+  { title: "text", description: "text" },
+  { name: "txt_title_desc", default_language: "spanish" }
 );

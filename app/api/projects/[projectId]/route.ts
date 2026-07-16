@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
-import { projectsCollection } from "@/lib/db/collections";
+import {
+  columnsCollection,
+  commentsCollection,
+  projectsCollection,
+  tasksCollection,
+} from "@/lib/db/collections";
 import { getSession } from "@/lib/auth/session";
 import { getAccessibleProject } from "@/lib/auth/authorize";
 import { updateProjectSchema } from "@/lib/validations/project";
@@ -68,6 +73,17 @@ export async function DELETE(
     );
   }
 
+  const tasks = await tasksCollection();
+  const taskIds = (
+    await tasks.find({ project_id: project._id }, { projection: { _id: 1 } }).toArray()
+  ).map((t) => t._id);
+
+  if (taskIds.length > 0) {
+    await (await commentsCollection()).deleteMany({ task_id: { $in: taskIds } });
+  }
+  await tasks.deleteMany({ project_id: project._id });
+  await (await columnsCollection()).deleteMany({ project_id: project._id });
   await (await projectsCollection()).deleteOne({ _id: project._id });
+
   return NextResponse.json({ ok: true });
 }

@@ -8,8 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import type { ProjectStatus } from "@/types";
-
-const STATUS_OPTIONS: ProjectStatus[] = ["active", "paused", "finished"];
+import { PROJECT_STATUS_LABEL, PROJECT_STATUS_OPTIONS } from "@/lib/i18n/labels";
 
 interface ProjectActionsProps {
   projectId: string;
@@ -89,9 +88,9 @@ export function ProjectActions({
             defaultValue={initialStatus}
             className="w-full rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-sm outline-none focus:border-zinc-500 dark:border-zinc-700 dark:focus:border-zinc-400"
           >
-            {STATUS_OPTIONS.map((status) => (
+            {PROJECT_STATUS_OPTIONS.map((status) => (
               <option key={status} value={status}>
-                {status}
+                {PROJECT_STATUS_LABEL[status]}
               </option>
             ))}
           </select>

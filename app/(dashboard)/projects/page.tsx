@@ -3,6 +3,7 @@ import { ObjectId } from "mongodb";
 import { projectsCollection } from "@/lib/db/collections";
 import { getSession } from "@/lib/auth/session";
 import { Card } from "@/components/ui/card";
+import { PROJECT_STATUS_LABEL } from "@/lib/i18n/labels";
 import { NewProjectForm } from "./_components/new-project-form";
 
 export default async function ProjectsPage() {
@@ -30,7 +31,9 @@ export default async function ProjectsPage() {
               {project.description && (
                 <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{project.description}</p>
               )}
-              <p className="mt-3 text-xs uppercase tracking-wide text-zinc-500">{project.status}</p>
+              <p className="mt-3 text-xs uppercase tracking-wide text-zinc-500">
+                {PROJECT_STATUS_LABEL[project.status]}
+              </p>
             </Card>
           </Link>
         ))}

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { ObjectId } from "mongodb";
-import { projectsCollection } from "@/lib/db/collections";
+import { Int32, ObjectId } from "mongodb";
+import { columnsCollection, projectsCollection } from "@/lib/db/collections";
 import { getSession } from "@/lib/auth/session";
 import { createProjectSchema } from "@/lib/validations/project";
 
@@ -41,6 +41,22 @@ export async function POST(request: Request) {
     due_date,
     status: "active",
   });
+
+  const defaultColumns = [
+    { name: "Por hacer", color: "#94A3B8" },
+    { name: "En progreso", color: "#3B82F6" },
+    { name: "En revisión", color: "#F59E0B" },
+    { name: "Terminado", color: "#22C55E" },
+  ];
+  await (await columnsCollection()).insertMany(
+    defaultColumns.map((c, order) => ({
+      _id: new ObjectId(),
+      name: c.name,
+      color: c.color,
+      order: new Int32(order) as unknown as number,
+      project_id: _id,
+    }))
+  );
 
   return NextResponse.json({ id: _id.toString() }, { status: 201 });
 }

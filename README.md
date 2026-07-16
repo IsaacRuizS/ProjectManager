@@ -15,7 +15,6 @@ Práctica evaluada No. 4 — SC-609 Base de Datos NoSQL, Universidad Fidélitas.
    ```env
    MONGODB_URI="mongodb+srv://pm_app:<pass>@<cluster>/?retryWrites=true&w=majority"
    MONGODB_DB="project_management"
-   MONGODB_ADMIN_URI="mongodb+srv://pm_admin:<pass>@<cluster>/?retryWrites=true&w=majority"
    AUTH_SECRET="<openssl rand -base64 32>"
    ```
 
@@ -23,7 +22,6 @@ Práctica evaluada No. 4 — SC-609 Base de Datos NoSQL, Universidad Fidélitas.
 
    ```bash
    npm install
-   mongosh "$MONGODB_ADMIN_URI" --file scripts/create-database.js
    ```
 
 ## Desarrollo
